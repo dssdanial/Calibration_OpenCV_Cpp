@@ -179,15 +179,17 @@ Distortion Coefficients (k):
 [k1, k2, p1, p2, k3]=[-0.402892, 0.161711, 0, 0, 0]
 ```
 
+📌 **Extract Rotation & Translation Matrices:** 
 
+The rotation vectors (rvecs) represent the orientation of the camera, and the translation vectors (tvecs) represent the position of the camera relative to the checkerboard.
+Convert rotation vectors to rotation matrices using:
+```
+cv::Mat rotationMatrix;
+cv::Rodrigues(rvecs[i], rotationMatrix);
+std::cout << "Rotation Matrix: " << rotationMatrix << std::endl;
+std::cout << "Translation Vector: " << tvecs[i] << std::endl;
 
-
-
-
-📌 **Explanation:**  
-The **intrinsic matrix (K)** defines the camera’s focal length and principal point.  
-The **distortion coefficients (k)** describe the lens distortions.  
-
+```
 
 ---
 ## 🛠️ Usage
