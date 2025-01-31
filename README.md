@@ -157,6 +157,39 @@ Original:            Undistorted:
 
 ---
 
+
+## 📊 Results
+
+### 📷 **Comparison of Original and Undistorted Image**
+| Original Image | Undistorted Image |
+|---------------|------------------|
+| ![Original](results/original.jpg) | ![Undistorted](results/undistorted.jpg) |
+
+### 🔢 **Camera Matrices**
+
+```
+Re-projection Error= 0.270713  
+
+Intrinsic Matrix (K):
+⎡ fx   0   cx ⎤    ⎡ 1090.8203     0        959.5 ⎤
+⎢ 0    fy  cy ⎥ =  ⎢     0    1090.8203     539.5 ⎥
+⎣ 0    0    1 ⎦    ⎣     0          0        1    ⎦
+
+Distortion Coefficients (k):
+[k1, k2, p1, p2, k3]=[-0.402892, 0.161711, 0, 0, 0]
+```
+
+
+
+
+
+
+📌 **Explanation:**  
+The **intrinsic matrix (K)** defines the camera’s focal length and principal point.  
+The **distortion coefficients (k)** describe the lens distortions.  
+
+
+---
 ## 🛠️ Usage
 
 ### **Compile and Run** 🚀
