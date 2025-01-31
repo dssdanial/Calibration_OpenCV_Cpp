@@ -160,10 +160,10 @@ Original:            Undistorted:
 
 ## 📊 Results
 
-### 📷 **Comparison of Original and Undistorted Image**
-| Original Image | Undistorted Image |
+### 📷 **Corner detection results**
+| Image 01 |  Image 02 |
 |---------------|------------------|
-| ![Original](results/original.jpg) | ![Undistorted](results/undistorted.jpg) |
+| ![Original](results/01.jpg) | ![Undistorted](results/02.jpg) |
 
 ### 🔢 **Camera Matrices**
 
