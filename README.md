@@ -168,7 +168,7 @@ Original:            Undistorted:
 ### 🔢 **Camera Matrices**
 
 ```
-Re-projection Error= 0.270713  
+Re-projection Error= 0.270713   //For 7 frames
 
 Intrinsic Matrix (K):
 ⎡ fx   0   cx ⎤    ⎡ 1090.8203     0        959.5 ⎤
