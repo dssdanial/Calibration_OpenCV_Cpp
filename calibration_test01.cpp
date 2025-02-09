@@ -56,7 +56,7 @@ int main(int argc, char** argv) {
 
 
 
-		//Display
+		//Show each modified image
 		cv::drawChessboardCorners(img, patternsize, q[i], patternfound);
 		cv::imshow("Checkboard Detection", img);
 		cv::waitKey(0);
@@ -112,3 +112,62 @@ int main(int argc, char** argv) {
 
 	return 0;
 }
+
+
+
+
+
+
+
+//Exporting the result in a txt file
+void saveCameraParameters(const cv::Matx33f& K, const cv::Vec<float, 5>& k, const std::vector<cv::Mat>& rvecs, const std::vector<cv::Mat>& tvecs, const float& reprojectionError, const std::string& filename) {
+	std::ofstream file(filename);  // Use of ofstream for text file output
+
+	// Save the intrinsic matrix (K) in readable format
+	file << "Calibration Results:\n";
+	file << "Intrinsic Matrix (K):\n";
+	file << "[ " << std::fixed << std::setprecision(4) << 
+					K(0, 0) << " ,  " << K(0, 1) << " ,  " << K(0, 2) << " ]\n";
+	file << "[ " << K(1, 0) << " ,  " << K(1, 1) << " ,  " << K(1, 2) << " ]\n";
+	file << "[ " << K(2, 0) << " ,  " << K(2, 1) << " ,  " << K(2, 2) << " ]\n";
+
+	// Save distortion coefficients (k)
+	file << "\nDistortion Coefficients (k):\n";
+	file << "[k1, k2, p1, p2, k3] = [";
+	for (int i = 0; i < 5; i++) {  // cv::Vec<float, 5> has 5 elements
+		file << std::fixed << std::setprecision(6) << k[i];
+		if (i < 4) file << ", ";  // Add commas between values
+	}
+	file << "]\n";
+
+	// Save rotation matrix (using Rodrigues conversion)
+	file << "\nRotation Matrices (R):\n";
+	for (size_t i = 0; i < rvecs.size(); i++) {
+		cv::Mat R;
+		cv::Rodrigues(rvecs[i], R);  // Convert rvec to rotation matrix using Rodrigues
+		file << "[ " << std::fixed << std::setprecision(4) << R.at<double>(0, 0) << " ,  " << R.at<double>(0, 1) << " ,  " << R.at<double>(0, 2) << " ]\n";
+		file << "[ " << R.at<double>(1, 0) << " ,  " << R.at<double>(1, 1) << " ,  " << R.at<double>(1, 2) << " ]\n";
+		file << "[ " << R.at<double>(2, 0) << " ,  " << R.at<double>(2, 1) << "  , " << R.at<double>(2, 2) << " ]\n";
+		file << "-------------\n";
+	}
+
+	// Save translation vectors (tvecs)
+	file << "\nTranslation Vectors (T):\n";
+	for (size_t i = 0; i < tvecs.size(); i++) {
+		file << "[";
+		for (int j = 0; j < 3; j++) {
+			file << std::fixed << std::setprecision(4) << tvecs[i].at<double>(j);
+			if (j < 2) file << ", ";  // Add commas between values
+		}
+		file << "]\n";
+	}
+
+	// Save reprojection error
+	file << "\nReprojection Error: " << reprojectionError << "\n";
+
+	file.close();
+	std::cout << "Parameters saved to " << filename << std::endl;
+}
+
+
+
